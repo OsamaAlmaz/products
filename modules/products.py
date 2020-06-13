@@ -4,7 +4,8 @@ from sqlalchemy import (
     BigInteger,
     String,
     DateTime,
-    Integer
+    Integer,
+    UniqueConstraint
 )
 
 
@@ -17,5 +18,6 @@ class Product (Base):
     ts = Column(DateTime())
     description = Column()
     contact_message = Column()
-    
-
+    __table_args__ = (
+        UniqueConstraint("ts"),
+    )

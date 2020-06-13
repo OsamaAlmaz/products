@@ -5,7 +5,9 @@ from sqlalchemy import (
     String,
     DateTime,
     Integer,
-    ForeignKey
+    ForeignKey,
+    DECIMAL,
+    UniqueConstraint
 )
 
 
@@ -14,6 +16,15 @@ class Order(Base):
     customer_id = Column(BigInteger, 
                          ForeignKey("customer.id", ondelete="CASCADE"),
                          nullable=False)
-    product
-    employee_id = Column(Integer, ForeignKey("employee.id"), nullable=False)
-    order_date = Column(DateTime(), nullable=False)
+    product_id = Column(BigInteger,
+                        ForeignKey("products.id"), ondelete="CASCADE",
+                        nullable=False)
+    price = Column(Integer, nullable=False)
+    quantity = Column(Integer, nullable=False)
+    discount = Column(DECIMAL, nullable=False)
+    total = Column(Integer, nullable=False)
+    shipping_date = Column(DateTime(), nullable=False)
+    __table_args__ = (
+        UniqueConstraint("customer_id"),
+    )
+
