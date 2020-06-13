@@ -1,0 +1,4 @@
+when defining a database we need to use a table, mapper and a class. A class is used to define the table of sql database
+and to do this we use an sqlalchemy.
+Base = declarative_base()
+declarative_base() allows use to use all attributes.
