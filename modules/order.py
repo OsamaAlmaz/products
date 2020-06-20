@@ -7,7 +7,8 @@ from sqlalchemy import (
     Integer,
     ForeignKey,
     DECIMAL,
-    UniqueConstraint
+    UniqueConstraint,
+    Index
 )
 
 
@@ -26,5 +27,5 @@ class Order(Base):
     shipping_date = Column(DateTime(), nullable=False)
     __table_args__ = (
         UniqueConstraint("customer_id"),
+        Index("customer_id_index", "customer_id", "product_id")
     )
-
