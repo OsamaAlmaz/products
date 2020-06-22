@@ -1,3 +1,23 @@
 version: '3'
 services:
+  rabbitmq:
+    image: rabbitmq:alpine
+    ports:
+      - 5672:5672
   celery:
+    build:
+      context: .
+      dockerfile: docker/BaseDockerfile
+    command: bash -c "venv/bin/celery worker -c 4 -A products.celery.app.celery_app -l debug"
+    depends_on:
+      - redis
+      - rabbitmq
+  redis:
+    image: redis:alpine
+    ports:
+      - 6379:6379
+  postgres:
+    image: postgres:alpine
+    ports:
+      - 5431:5431
+    restart: always
