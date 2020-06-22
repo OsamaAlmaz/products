@@ -2,4 +2,10 @@
 
 FROM python:3.7.4-slim
 WORKDIR /opt/project
-RUN apt-get update;
+RUN apt-get update; apt-get install -y libpq-dev gcc
+RUN pip install --upgrade pip
+RUN python -m venv venv
+
+# install python required packages
+COPY requirements.txt /opt/project/requirements.txt
+RUN venv/bin/pip install -r /opt/project/requirements.txt
