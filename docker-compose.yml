@@ -21,3 +21,6 @@ services:
     ports:
       - 5431:5431
     restart: always
+    environment:
+      POSTGRES_DB: "db"
+      POSTGRES_HOST_AUTH_METHOD: "trust"
