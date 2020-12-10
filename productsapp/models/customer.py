@@ -8,7 +8,7 @@ from sqlalchemy import (
 
 )
 
-from sqlalchemy.orm import relationship
+from sqlalchemy import relationship
 
 
 class Customer(Base):
