@@ -1,4 +1,3 @@
-from modules.base import Base
 from sqlalchemy import (
     Column,
     BigInteger,
@@ -7,11 +6,11 @@ from sqlalchemy import (
     DateTime
 
 )
-
 from sqlalchemy import relationship
+from base import BaseModel
 
 
-class Customer(Base):
+class Customer(BaseModel):
     __tablename__ = 'customer'
     id = Column(BigInteger, primary_key= True)
     first_name = Column(String(length=126), nullable=True)

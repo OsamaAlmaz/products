@@ -7,9 +7,9 @@ from sqlalchemy import (
     Integer,
     UniqueConstraint
 )
+from base import BaseModel
 
-
-class Product (Base):
+class Product (BaseModel):
     __tablename__ = 'product'
     id = Column(BigInteger, primary_key=True)
     brand_name = Column (String(length=126), nullable=True)

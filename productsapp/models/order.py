@@ -10,9 +10,9 @@ from sqlalchemy import (
     UniqueConstraint,
     Index
 )
+from base import BaseModel
 
-
-class Order(Base):
+class Order(BaseModel):
     order_id = Column(BigInteger, primary_key=True)
     customer_id = Column(BigInteger, 
                          ForeignKey("customer.id", ondelete="CASCADE"),
