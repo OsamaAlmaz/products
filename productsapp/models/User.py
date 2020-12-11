@@ -4,8 +4,9 @@ from sqlalchemy import (
     Column,
     BigInteger
 )
+from base import BaseModel
 
-class User(Base):
+class User(BaseModel):
     __tablename__ = 'login'
     id = Column(BigInteger(), primary_key=True)
     Name = Column(String(length=126), nullable=True)

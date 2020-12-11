@@ -1,13 +1,13 @@
-from modules.base import Base
 from sqlalchemy import Column
 from sqlalchemy import (
     String,
     DateTime,
     Integer
 )
+from base import BaseModel
 
 
-class Employee(Base):
+class Employee(BaseModel):
     __tablename__ = 'employee'
     id = Column(Integer, primary_key=True)
     lastname = Column(String(length=126), nullable=False)

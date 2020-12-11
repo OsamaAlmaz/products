@@ -8,8 +8,11 @@ from sqlalchemy import (
     ForeignKey,
     DECIMAL
 )
+from base import BaseModel
 
-class Shipper(Base):
+
+
+class Shipper(BaseModel):
     id = Column(BigInteger, primary_key=True, nullable=False)
     company_name = Column(String(length=126), nullable=False)
     phone = Column(Integer, nullable=False)
