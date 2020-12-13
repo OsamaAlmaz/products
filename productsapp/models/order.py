@@ -10,10 +10,14 @@ from sqlalchemy import (
     UniqueConstraint,
     Index
 )
-from base import BaseModel
+from models.base import BaseModel
+from sqlalchemy.schema import ForeignKeyConstraint
+from sqlalchemy.orm import relationship
+from models.products import Products
 
 class Order(BaseModel):
-    order_id = Column(BigInteger, primary_key=True)
+    __tablename__ = 'order'
+    id = Column(BigInteger, primary_key=True)
     customer_id = Column(BigInteger, 
                          ForeignKey("customer.id", ondelete="CASCADE"),
                          nullable=False)
@@ -22,10 +26,16 @@ class Order(BaseModel):
                         nullable=False)
     price = Column(Integer, nullable=False)
     quantity = Column(Integer, nullable=False)
-    discount = Column(DECIMAL, nullable=False)
-    total = Column(Integer, nullable=False)
-    shipping_date = Column(DateTime(), nullable=False)
+    cost = Column(Integer, ForeignKey('products.price'),nullable=False)
+    ForeignKeyConstraint(
+        columns=["product_id"], refcolumns=["products.id"], ondelete="CASCADE"
+    )
+    ForeignKeyConstraint(
+        columns=["customer_id"], refcolumns=["customer.id"], ondelete="CASCADE"
+    )
+    product = relationship("Products")
+    customer = relationship("customer")
     __table_args__ = (
-        UniqueConstraint("customer_id"),
-        Index("customer_id_index", "customer_id", "product_id")
+        UniqueConstraint("customer_id","product_id"),
+        Index("customer_id_index", "customer_id")
     )
