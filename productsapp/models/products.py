@@ -9,15 +9,14 @@ from sqlalchemy import (
 )
 from base import BaseModel
 
-class Product (BaseModel):
+class Products (BaseModel):
     __tablename__ = 'product'
     id = Column(BigInteger, primary_key=True)
-    brand_name = Column (String(length=126), nullable=True)
-    title = Column(String(length=True), nullable=True)
-    price = Column(Integer, nullable=True)
+    brand_name = Column (String(length=126), nullable=False)
+    title = Column(String(length=True), nullable=False)
+    brand = Column (String(length=True), nullable=False)
+    price = Column(Integer, nullable=False)
     ts = Column(DateTime())
-    description = Column()
-    contact_message = Column()
-    __table_args__ = (
-        UniqueConstraint("ts"),
-    )
+    description = Column(String(length=True), nullable=True)
+    specifications = Column()
+

@@ -17,8 +17,4 @@ class Customer(BaseModel):
     last_name = Column(String(length=126),nullable=True)
     phone = Column(Integer,nullable=True)
     email = Column(String(length=126), nullable=True)
-    street = Column(String(length=126), nullable=True)
-    city = Column(String(length=126),nullable=True)
-    state = Column (String(length=126), nullable=True)
-    zip_code = Column (String(length=126),nullable=True)
     timestamp = Column (DateTime())
