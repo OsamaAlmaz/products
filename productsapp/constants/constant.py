@@ -10,7 +10,7 @@ sqlalchemy_url = (
     'postgres://'
     'postgres'
     ':'
-    'lifemaker+9'
+    ''
     '@'
     'database-1.c6k9xfocwdbn.us-east-1.rds.amazonaws.com'
     ':5432'
