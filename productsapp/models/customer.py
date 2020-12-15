@@ -8,7 +8,7 @@ from sqlalchemy import (
 )
 from sqlalchemy import relationship
 from base import BaseModel
-
+from base import Base
 
 class Customer(BaseModel):
     __tablename__ = 'customer'

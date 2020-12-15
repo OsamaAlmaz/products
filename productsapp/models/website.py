@@ -6,10 +6,9 @@ from sqlalchemy import (
     BigInteger,
     ForeignKey
 )
-from base import BaseModel
+from db import Base
 
-
-class Website(BaseModel):
+class Website(Base):
     __tablename__ = 'website'
     id = Column (BigInteger, primary_key=True)
     website_name = Column (String(length=True), nullable=False)
