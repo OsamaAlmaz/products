@@ -5,10 +5,14 @@ from constants import constant
 import logging
 from sqlalchemy import MetaData
 from sqlalchemy import *
-from base import BaseModel
-from base import engine
+from crawler import Base
+
+from sqlalchemy import create_engine
+
+
 
 def create_db ():
+    engine = create_engine(constant.sqlalchemy['url'], echo="debug")
     Base.metadata.create_all(engine)
 
 

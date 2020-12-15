@@ -16,4 +16,9 @@ class Employee(BaseModel):
     hiredate = Column(DateTime(),nullable=False)
     phone = Column(Integer,nullable=True)
     salary = Column(Integer,nullable=False)
+
+    
+    def __repr__(self):
+        return "<employee id={}, lastname={}, firstname={}, salary={}".format(self.id, self.lastname, self.firstname, self.salary)
+    
     

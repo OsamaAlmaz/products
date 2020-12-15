@@ -18,5 +18,8 @@ class Products (BaseModel):
     price = Column(Integer, nullable=False)
     ts = Column(DateTime())
     description = Column(String(length=True), nullable=True)
-    specifications = Column()
+    specifications = Column(String(length=True), nullable=True)
 
+
+    def __repr__(self):
+        return "<Product "

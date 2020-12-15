@@ -25,7 +25,7 @@ class Order(BaseModel):
                         ForeignKey("products.id"), ondelete="CASCADE",
                         nullable=False)
     price = Column(Integer, nullable=False)
-    quantity = Column(Integer, nullable=False)
+    quantity = Column(Integer, default=1, nullable=False)
     cost = Column(Integer, ForeignKey('products.price'),nullable=False)
     ForeignKeyConstraint(
         columns=["product_id"], refcolumns=["products.id"], ondelete="CASCADE"
@@ -39,3 +39,7 @@ class Order(BaseModel):
         UniqueConstraint("customer_id","product_id"),
         Index("customer_id_index", "customer_id")
     )
+
+    def __repr__(self):
+        return "<Order id={}, customer_id={}, product_id={}, cost={}".format(self.id, self.customer_id, self.product_id, self.cost)
+    
