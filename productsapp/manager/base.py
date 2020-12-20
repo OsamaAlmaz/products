@@ -18,6 +18,5 @@ class AbstractManager(Generic[T]):
         return NotImplementedError
     def delete(self):
         return NotImplementedError
-
-
-
+    def create(self):
+        return NotImplementedError

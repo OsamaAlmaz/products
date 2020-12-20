@@ -3,7 +3,7 @@ MONGO_CRED = {
 }
 
 sqlalchemy = {
-    'url': 'postgres://postgres:NumeratorOA1028@localhost:5432/postgres'
+    'url': 'postgres://postgres:@localhost:5432/postgres'
 }
 
 sqlalchemy_url = (
