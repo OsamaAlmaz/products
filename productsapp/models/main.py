@@ -10,8 +10,7 @@ from sqlalchemy import (
 
 )
 from sqlalchemy.orm import relationship
-from base import BaseModel
-from base import Base
+from productsapp.models.base import BaseModel
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import ForeignKeyConstraint
 Base = declarative_base()
