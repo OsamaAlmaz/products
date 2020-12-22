@@ -10,10 +10,9 @@ from sqlalchemy import (
 
 )
 from sqlalchemy.orm import relationship
-from base import BaseModel
-from base import Base
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import ForeignKeyConstraint
+from models.base import BaseModel
 
 
 class Crawler(BaseModel):

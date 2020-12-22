@@ -8,7 +8,7 @@ from sqlalchemy import (
     DateTime
 
 )
-from constants import constant
+from productsapp.constants import constant
 from sqlalchemy import create_engine
 Base = declarative_base()
 

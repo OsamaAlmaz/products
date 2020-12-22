@@ -1,23 +1,18 @@
-from manager.base import BaseAbstract
-from data_access.crawler import  Website
+from productsapp.manager.base import AbstractManager
 from sqlalchemy.orm import Session
 import datetime
-from models.main import Website
+from productsapp.models.main import Website
+from productsapp.main import Engine
+from productsapp.manager.base import AbstractManager
+engine = Engine()
+session = engine.session_maker()
 
 
-"""
-class Website(Base):
-    __tablename__ = 'website'
-    id = Column (BigInteger, primary_key=True)
-    website_name = Column (String(length=True), nullable=False)
-    website_base_url = Column(String(length=True), nullable=False)
-"""
-
-class WebsiteManager(BaseAbstract):
+class WebsiteManager(AbstractManager):
     def __init__ (self, session: Session):
         self._session = session
     
-    def create(self, website_name, website_base_url) -> Website:
+    def create(self, website_name: str, website_base_url: str) -> Website:
         website = self._create(website_name, website_base_url)
         self._session.commit(website)
         return website
@@ -30,14 +25,15 @@ class WebsiteManager(BaseAbstract):
             website_base_url = website_base_url
         )
         self._session.add(website)
-        self._session
         return website
+    def get_session(self):
+        return self._session
+    
         
     def get(self, id:int):
-        q = self._session.query(Website).filter(Website.id=id)
-        return q
-
+        web_obj= self._sesison.query(Website).filter(Website.id==id).first()
+        return web_obj
+    
     def update_name(self, id: int, name, base_url):
-        
-        q = self._sesison.query(Website).
-        filter(Website.id=id).update({Website.name=name})
+        q = self._sesison.query(Website).filter(Website.id==id).update({"name":name})
+        return q
