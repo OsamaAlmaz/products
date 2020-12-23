@@ -4,10 +4,10 @@
     customer: The purpose of the customer database to keep track of customer_information, email address. 
         first name: string
         last name: string
-
-    products: the main purpose of the products database to save the product specification such as, sku, model number, title, price, product bullet point, spec, image, date. 
+    products: the main purpose of the products table to save what the crawler would return when they are crawling it. 
+    customer_website: the main purpose of this table is to display all of the websites names associated with  
     order: the main purpose of order, is to order a new website to be crawled and the cost associated with them i.e walmart, amazon. 
-    crawler: the main purpose of the crawler is to 
+    crawler: the main purpose of the crawler is to to track information about the status,
 
 
 The design process
