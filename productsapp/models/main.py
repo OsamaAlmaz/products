@@ -18,19 +18,22 @@ import datetime
 
 class BaseModel(Base):
     __abstract__ = True
-    created_date = Column(DateTime(), default= datetime.datetime.utcnow())
-    update_date = Column(DateTime(), default=datetime.datetime.utcnow())
+    created_date = Column(DateTime(), default=datetime.datetime.utcnow())
+    update_date = Column(DateTime())
     delete_date = Column(DateTime())
 
 
 class Website(BaseModel):
     __tablename__ = 'website'
     id = Column (BigInteger, primary_key=True)
-    website_name = Column (String(length=True), nullable=False)
+    website_name = Column (String(length=225), nullable=False)
     website_base_url = Column(String(length=True), nullable=False)
 
-
-
+"""
+class Customer_Website(BaseModel):
+    __tablename__ = 'customer_website'
+    #add the new table here. 
+"""
 
 class Crawler(BaseModel):
     __tablename__ = 'crawler'
@@ -112,8 +115,6 @@ class Order(BaseModel):
     ForeignKeyConstraint(
         columns=["customer_id"], refcolumns=["customer.id"], ondelete="CASCADE"
     )
-    product = relationship("Products")
-    customer = relationship("customer")
     __table_args__ = (
         UniqueConstraint("id"),
     )
