@@ -18,20 +18,25 @@ class WebsiteManager(AbstractManager):
     
     def create(self, website_name: str, website_base_url: str) -> Website:
         # see if you are trying to do any checking here.
+        obj = self._access.get_base_url(website_base_url)
+        if obj:
+            return
         return self._access.create(website_name, website_base_url)
 
     def get_session(self):
         return self._session
 
-        
     def get(self, id:int):
         website_obj = self._access.get(id)
         return web_obj
+    def get_name(self, name: str):
+        return self._access.get_name(name)
     
-    def update_name(self, id: int, name, base_url):
-        result = self.get(id)
+    def update_name(self, old_name: str, new_name: str):
+        result = self.get_name(old_name)
         if result:
-            self._access.update_name(id, name)
+            res = self._access.update_name(old_name, new_name)
+            return res
         return result
     
     def update_base_url (self, id: int, base_url: str):
@@ -39,3 +44,8 @@ class WebsiteManager(AbstractManager):
         if result:
             self._access.update_base_url(id, base_url)
         return
+    
+    def delete(self, id: int):
+        result = self.get(id)
+        if id:
+            
