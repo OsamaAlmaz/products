@@ -60,8 +60,26 @@ class WebsiteAccess (BaseAccess):
         if website:
             self._sesison.query(Website).filter(Website.id==id).update({"website_base_url": base_url})
         return
-    def delete(self, id: int):
-        result = self.get(id)
+    def delete(self, name: str):
+        result = self.get_name(name)
         if result:
-            self._session.query(Website).filter(Website.id==id).delete()
+            self._session.query(Website).filter(Website.name==name).delete()
+    
+    def count_list (self) -> int:
+        return self._session.query(Website).count()
+    
+    def list(self, limit: int = 20, skip: int = 0, filter: Dict[str, Any]= None):
+        q = self._session.query(Website)
+        if filter:
+            self._filter_list(q, filter)
+        count = q.count()
+        q = q.offset(skip).limit(limit) 
+        return count, q
+    
+    def get_list_count() -> int:
+        return self._session.query(Website).count()
         
+    
+    def _filter_list (query, filter):
+        return
+    
