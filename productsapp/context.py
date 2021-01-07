@@ -1,12 +1,12 @@
-from manager.crawler import CrawlerManager
-from manager.website import WebsiteManager
-
+from productsapp.manager.website import WebsiteManager
 
 
 
 class MainContext():
-    def WebsiteManager(self, session):
-        return WebsiteManager(session)
+    def __init__ (self, session):
+        self.session = session
     
-    def CrawlerManager(self, session): 
-        return CrawlerManager
+    @property
+    def website_manager(self):
+        return WebsiteManager(self.session)
+    

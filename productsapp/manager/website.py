@@ -35,6 +35,10 @@ class WebsiteManager(AbstractManager):
     def get_name(self, name: str):
         return self._access.get_name(name)
     
+    def update(self, id: int, website: Website) -> Website:
+        website_data = self._access.get(website)
+
+
     def update_name(self, old_name: str, new_name: str):
         result = self.get_name(old_name)
         if result:
@@ -54,4 +58,4 @@ class WebsiteManager(AbstractManager):
             self._access.delete(name)
     
     def list(self):
-        retur self._access.list()
+        return self._access.list()
