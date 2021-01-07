@@ -68,13 +68,13 @@ class WebsiteAccess (BaseAccess):
     def count_list (self) -> int:
         return self._session.query(Website).count()
     
-    def list(self, limit: int = 20, skip: int = 0, filter: Dict[str, Any]= None):
+    def list(self, limit: int = 20, skip: int = 0, filter=None):
         q = self._session.query(Website)
         if filter:
             self._filter_list(q, filter)
         count = q.count()
         q = q.offset(skip).limit(limit) 
-        return count, q
+        return count, q.all()
     
     def get_list_count() -> int:
         return self._session.query(Website).count()
