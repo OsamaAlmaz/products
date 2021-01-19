@@ -1,4 +1,4 @@
-from marshmallow import postload 
+from marshmallow import post_load 
 from marshmallow_jsonapi import Schema as marshmallowJsonSchema, fields
 
 class CoreSchema (marshmallowJsonSchema):
