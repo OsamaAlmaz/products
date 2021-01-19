@@ -1,3 +1,10 @@
+In order to Run the FLASK Application first you need to set up the FLASK_APP. 
+Make sure that you cd into the main project directory products and then run the following code. 
+
+export FLASK_APP=productsapp/main.py
+PYTHONPATH=. python -m flask run 
+
+
 This is an enterprise application that asks the user to upload a document with list of interested url, that will then kick off a crawl that will grap the price, image, description, specifications and display the result to the customer. 
 
 

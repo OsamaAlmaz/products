@@ -5,11 +5,19 @@ from typing import List, Tuple
 from productsapp.service.core import MainResource
 from sqlalchemy.orm import Session
 from productsapp.models.main import Website
+import json 
+from productsapp.client.website import WebsiteSchema
 
 
 class WebsiteResource (MainResource):
     def __init__ (self):
         super().__init__()
+    
+    schema = WebsiteSchema
+    ws = WebsiteSchema()
+    
+    def get(self): 
+        return self.schema.dumps(self.ws, self.context.website_manager.list(), many=True).data
         
     def read(self, skip: int, limit: int) -> Tuple[int, List[Website]]: 
         return self.context.website_manager.list()
