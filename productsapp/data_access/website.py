@@ -74,7 +74,7 @@ class WebsiteAccess (BaseAccess):
             self._filter_list(q, filter)
         count = q.count()
         q = q.offset(skip).limit(limit) 
-        return q.all()
+        return count, q.all()
     
     def get_list_count() -> int:
         return self._session.query(Website).count()

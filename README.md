@@ -3,6 +3,9 @@ Make sure that you cd into the main project directory products and then run the 
 
 export FLASK_APP=productsapp/main.py
 PYTHONPATH=. python -m flask run 
+In order to Make a get request using skip and limit argument then type the following: 
+
+curl --request GET http://127.0.0.1:5000/website -d "limit=20" -d "skip=0"
 
 
 This is an enterprise application that asks the user to upload a document with list of interested url, that will then kick off a crawl that will grap the price, image, description, specifications and display the result to the customer. 

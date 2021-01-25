@@ -21,6 +21,6 @@ class Engine:
 def create_app() -> Flask:
     flask_app = Flask(__name__)
     from productsapp.service.api_list import api_bp
-    
+
     flask_app.register_blueprint(api_bp)
     return flask_app

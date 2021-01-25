@@ -34,6 +34,16 @@ class Customer_Website(BaseModel):
     __tablename__ = 'customer_website'
     #add the new table here. 
 """
+class Customer_Website(BaseModel):
+    __tablename__ = "customer_website"
+    id = Column (BigInteger, primary_key=True)
+    customer_id = Column(BigInteger, 
+                         ForeignKey("customer.id", ondelete="CASCADE"),
+                         nullable=False)
+    website_name = Column (BigInteger, 
+                            ForeignKey("website.id", ondelete="CASCADE"),
+                            nullable=False)
+    
 
 class Crawler(BaseModel):
     __tablename__ = 'crawler'
