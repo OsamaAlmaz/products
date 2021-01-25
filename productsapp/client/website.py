@@ -12,7 +12,6 @@ class WebsiteSchema (Schema):
     website_name = fields.String(dumpy_only=True)
     website_base_url = fields.String(dumpy_only=True)
 
-    #implement id in the parent class
     
     @post_load
     def make_object(self, data):

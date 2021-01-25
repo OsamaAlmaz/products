@@ -6,24 +6,26 @@ from sqlalchemy.orm import Session
 from flask_restful import (
     Resource as FlaskResource, Api as FlaskRestfulApi, reqparse
 )
+from flask_restful import reqparse
+import json
+from flask import request 
+from marshmallow import ValidationError
 
 engine = Engine()
 session = engine.session_maker()
 
 """
 Implement the following methods
-
-def get() -> to get the specific instance return serialized output
-def post() -> to make sure to use schema.load() to decerialize the output
 def delete() -> remove the instance.
 def patch()
 def put ()
-def serializer () 
-"""
+""" 
 
 
 
 class MainResource (Resource):
+    schema = None
+
     def __init__(self):
         self.context = MainContext(session)
     
@@ -40,16 +42,49 @@ class MainResource (Resource):
         raise NotImplementedError ("please implement the remove method")
 
     
-    def get(self):
-        # need to be implemented here
-        return
-    def post(self):
-        return 
+    def get(self, **kwargs):
+        if kwargs:
+            self.read_one(**kwargs)
+        print(**kwargs)
+        print('this is **kawargs')
+        parser = reqparse.RequestParser()
+        parser.add_argument('limit')
+        parser.add_argument('skip')
+        args = parser.parse_args()
+        skip = args['limit'] or 20
+        limit = args['skip'] or 0
+        count, result = self.read(skip, limit)
+        serialized_data = self.serializer(result)
+        return serialized_data
 
-    def serializer (self):
+    def post(self):
+        data = request.get_json()
+        print(data)
+        try:
+            object, err = self.schema.load(data)
+        except ValidationError as e:
+            return str(e), 400
+        response = self.create_one(object)
+        data = self.serializer(response)
+        return data, 200
+    
+    def delete(self):
+        return
+    
+    def put (self):
+        return
+
+
+    def serializer (self, data):
         """
         return serialized object in here of the serializer type. 
         """
-        return 
+        # make sure that the child has the schema variable.
+        if not self.schema:
+            raise NotImplementedError('please implement the schema for the following class')
+        response = self.schema.dump(data, many=True).data
+
+        return response
+         
 
 

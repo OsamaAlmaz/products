@@ -13,18 +13,18 @@ class WebsiteResource (MainResource):
     def __init__ (self):
         super().__init__()
     
-    schema = WebsiteSchema
-    ws = WebsiteSchema()
-    
-    def get(self): 
-        return self.schema.dumps(self.ws, self.context.website_manager.list(), many=True).data
+    schema = WebsiteSchema()
         
     def read(self, skip: int, limit: int) -> Tuple[int, List[Website]]: 
         return self.context.website_manager.list()
         
     def read_one (self, id: int):
         return self.context.website_manager.get(id) or None
-
+    def create_one(self, website: Website):
+        return self.context.website_manager.create(
+            website.website_name, 
+            website.website_base_url
+        )
     
     @roles_accepted('admin')
     def create(self, website: Website):
