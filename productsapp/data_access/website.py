@@ -5,6 +5,7 @@ from productsapp.manager.base import AbstractManager
 from sqlalchemy.orm import Session
 import datetime
 from productsapp.main import Engine
+from productsapp.models.main import Website
 
 engine = Engine()
 session = engine.session_maker()
@@ -34,11 +35,11 @@ class WebsiteAccess (BaseAccess):
         return self._session
         
     def get(self, id:int):
-        web_obj= self._sesison.query(Website).filter(Website.id==id).first()
-        if web_obj:
-            return web_obj
+        web_obj= self._session.query(Website).filter(Website.id==id).first()
+        if not web_obj:
+            return
         return web_obj
-    
+
     def get_base_url(self, base_url: str):
         obj = self._session.query(Website).filter(Website.website_base_url == base_url).first()
         return obj
@@ -47,6 +48,13 @@ class WebsiteAccess (BaseAccess):
         result = self._session.query(Website).filter(Website.website_name == website_name).first() or ''
         return result
     
+    def update(self, id: int, website: Website):
+        self._session.query(Website).filter(Website.id==id).update({"website_name": website.website_name,
+        "website_base_url": website.website_base_url})
+        self._session.commit()
+        return
+
+
     def update_name(self, old_name: str, new_name: str):
         website = self.get_name(old_name) 
         if website:
@@ -60,10 +68,10 @@ class WebsiteAccess (BaseAccess):
         if website:
             self._sesison.query(Website).filter(Website.id==id).update({"website_base_url": base_url})
         return
-    def delete(self, name: str):
-        result = self.get_name(name)
+    def remove(self, id: int):
+        result = self.get(id)
         if result:
-            self._session.query(Website).filter(Website.name==name).delete()
+            self._session.query(Website).filter(Website.id==id).delete()
     
     def count_list (self) -> int:
         return self._session.query(Website).count()

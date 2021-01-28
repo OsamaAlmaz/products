@@ -38,7 +38,7 @@ class MainResource (Resource):
     def read_one(self):
         raise NotImplementedError("please implement the read_one method")
     
-    def remove(self):
+    def delete(self):
         raise NotImplementedError ("please implement the remove method")
 
     
@@ -60,17 +60,21 @@ class MainResource (Resource):
     def post(self):
         data = request.get_json()
         print(data)
+        print("this is the data")
         try:
             object, err = self.schema.load(data)
         except ValidationError as e:
             return str(e), 400
         response = self.create_one(object)
+        print(response.website_name)
+        print("This is the")
         data = self.serializer(response)
         return data, 200
     
-    def delete(self):
+    def delete(self, **kwargs):
+        self.remove(**kwargs)
         return
-    
+    # for an update. 
     def put (self):
         return
 
@@ -83,7 +87,6 @@ class MainResource (Resource):
         if not self.schema:
             raise NotImplementedError('please implement the schema for the following class')
         response = self.schema.dump(data, many=True).data
-
         return response
          
 

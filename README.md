@@ -5,8 +5,13 @@ export FLASK_APP=productsapp/main.py
 PYTHONPATH=. python -m flask run 
 In order to Make a get request using skip and limit argument then type the following: 
 
+For a GET Method:
 curl --request GET http://127.0.0.1:5000/website -d "limit=20" -d "skip=0"
-
+For a Post Method:
+r = requests.post('http://127.0.0.1:5000/website', json={"website_name": "create_website_3", "website_base_url": "www.create_website_3.com"})  
+r.text
+For Put Method do the following:
+For Delete Method do the following:
 
 This is an enterprise application that asks the user to upload a document with list of interested url, that will then kick off a crawl that will grap the price, image, description, specifications and display the result to the customer. 
 
