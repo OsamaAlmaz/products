@@ -74,7 +74,16 @@ class MainResource (Resource):
     def delete(self, **kwargs):
         self.remove(**kwargs)
         return
-    # for an update. 
+    def patch(self, id):
+        data = request.get_json()
+        try:
+            object, err = self.schema.load(data)
+        except ValidationError as e:
+            return str(e), 400
+        response = self.update(id, object)
+        data= self.serializer(response)
+        return data
+    
     def put (self):
         return
 
