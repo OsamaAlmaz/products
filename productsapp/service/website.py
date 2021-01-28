@@ -25,7 +25,12 @@ class WebsiteResource (MainResource):
             website.website_name, 
             website.website_base_url
         )
-    
+
+    @roles_accepted('admin')
+    def remove(self, id):
+        self.context.website_manager.remove(id)
+        return
+
     @roles_accepted('admin')
     def create(self, website: Website):
         return self.context.website_manager.create(
@@ -34,5 +39,5 @@ class WebsiteResource (MainResource):
         )
 
     @roles_accepted('admin')
-    def update (self, id: int, website: Website) -> Website:
-        return 
+    def update (self, id:int, website: Website):
+        return self.context.website_manager.update(website.id, website)

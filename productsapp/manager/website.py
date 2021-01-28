@@ -25,8 +25,9 @@ class WebsiteManager(AbstractManager):
 
     def get_session(self):
         return self._session
+    
 
-    def get(self, id:int):
+    def get_id(self, id:int):
         website_obj = self._access.get(id)
         return web_obj
     def get_list_count(self):
@@ -36,7 +37,7 @@ class WebsiteManager(AbstractManager):
         return self._access.get_name(name)
     
     def update(self, id: int, website: Website) -> Website:
-        website_data = self._access.get(website)
+        website_data = self._access.update(id,website)
 
 
     def update_name(self, old_name: str, new_name: str):
@@ -52,10 +53,10 @@ class WebsiteManager(AbstractManager):
             self._access.update_base_url(id, base_url)
         return
     
-    def delete(self, name: str):
-        result = self.get_name(name)
+    def remove(self, id: int):
+        result = self.get_id(id)
         if result:
-            self._access.delete(name)
+            self._access.remove(id)
     
     def list(self):
         return self._access.list()
