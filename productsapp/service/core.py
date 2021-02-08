@@ -38,7 +38,7 @@ class MainResource (Resource):
     def read_one(self):
         raise NotImplementedError("please implement the read_one method")
     
-    def delete(self):
+    def remove(self):
         raise NotImplementedError ("please implement the remove method")
 
     

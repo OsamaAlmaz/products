@@ -95,13 +95,14 @@ class Employee(BaseModel):
 class Products (BaseModel):
     __tablename__ = 'products'
     id = Column(BigInteger, primary_key=True)
-    brand_name = Column (String(length=126), nullable=False)
     title = Column(String(length=True), nullable=False)
-    brand = Column (String(length=True), nullable=False)
     price = Column(Integer, nullable=False)
-    ts = Column(DateTime())
+    brand_name = Column (String(length=126), nullable=False)
     description = Column(String(length=True), nullable=True)
     specifications = Column(String(length=True), nullable=True)
+    model_number = Column(Integer, nullable=False)
+    image_url = Column (String(2048))
+    ts = Column(DateTime())
 
 
     def __repr__(self):
