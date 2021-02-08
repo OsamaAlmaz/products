@@ -3,7 +3,9 @@ from lxml import html
 from pymongo import MongoClient
 from celery_app.app import Database
 from celery_app.constants import URL
-
+from celery_app.constants import content_array
+from productsapp.data_access.website import get_base_url
+from furl import furl
 
 
 class Error(Exception):
@@ -15,6 +17,25 @@ class Urlnotfound(Error):
 
 
 class Extractor():
+    def _extractor (self, url):
+        page = requests.get(url)
+        tree = html.fromstring(page.content)
+        root_url = furl(url).host
+        website_object = get_base_url(root_url)
+        store_id = website_object.id
+        content = content_array.get(store_id)
+        self._extractFields(url, content, tree)
+        return
+
+    def _extractFields(self, url, content_array):
+        title = tree.xpath(content_array['title'][0])
+        price = tree.xpath(content_array['price'][0])
+        description = tree.xpath(content_array['description'][0])
+        model_number = tree.xpath(content_array['model_number'][0])
+        image = tree.xpath(content_array['image'][0])
+        #serialize it and then send it off to productsapp database. 
+        return
+    
 
     def extractFields(self):
         self.__extract(URL)

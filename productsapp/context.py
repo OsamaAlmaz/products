@@ -1,5 +1,5 @@
 from productsapp.manager.website import WebsiteManager
-
+from productsapp.manager.products import Products
 
 
 class MainContext():
@@ -9,4 +9,8 @@ class MainContext():
     @property
     def website_manager(self):
         return WebsiteManager(self.session)
+    
+    @property
+    def products_manager(self):
+        return ProductsManager(self.session)
     
