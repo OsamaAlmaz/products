@@ -13,6 +13,8 @@ from sqlalchemy.orm import relationship
 from productsapp.models.base import BaseModel
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.schema import ForeignKeyConstraint
+from sqlalchemy.dialects.postgresql import JSONB
+
 Base = declarative_base()
 import datetime
 
@@ -46,10 +48,20 @@ class Customer_Website(BaseModel):
     
 
 class Crawler(BaseModel):
+    """
+    the crawler is the actual job task that 
+    loops through the api products provided 
+    by the scheduler. it is a
+    """
     __tablename__ = 'crawler'
     id = Column(BigInteger, primary_key= True)
-    website_id = Column(BigInteger, ForeignKey("website.id",ondelete="CASCADE"), nullable=False)
-    url = Column (String(length=True), nullable=False)
+    website_id = Column(Integer(), ForeignKey('website.id'), nullable=False, index=True)
+    status = Column(String(length=True), nullable=False)
+    # the value that we are searching for. it can be url, title, upc. 
+    crawl_value = Column(String(length=True), nullable= False)
+    # the actual type of the search, this could be a url, title, upc. 
+    crawl_type = Column(String(length=True), nullable=False) # the value, might be 
+    crawl_schedule = relationship("Schedule")
 
     def __eq__(self, other):
         return all(
@@ -66,6 +78,27 @@ class Crawler(BaseModel):
 
     def __str__(self):
         return self.website_id
+
+class Crawl_Status (BaseModel):
+    __tablename__ = "crawl_status"
+    id = Column (BigInteger, primary_key=True)
+    start_date = Column(DateTime(), nullable=True, index=True)
+    end_date = Column(DateTime(), nullable=True, index=True)
+    crawl_info = Column(JSONB(), nullable=True)
+    crawler_id = Column(BigInteger, ForeignKey('crawler.id', ondelete="CASCADE"), nullable=False)
+
+
+class Schedule (BaseModel):
+    """
+    scheduler is the main 
+    """
+    __tablename__ = 'schedule'
+    id = Column(BigInteger, primary_key=True, index=True)
+    name = Column(String(length=True), nullable=False)
+    customer_id = Column(BigInteger, ForeignKey("customer.id", ondelete="CASCADE"), nullable=False)
+    crawl_type = Column(String(length=True), nullable=False)
+    api_products_url= Column(String(length=True), nullable=False)
+    
 
 
 class Customer(BaseModel):
